@@ -193,6 +193,10 @@ file(GLOB MUPDF_CORE_SRC
 add_library(mupdf_core ${MUPDF_CORE_SRC})
 target_link_libraries(mupdf_core mujs freetype jbig2dec jpeg openjpeg zlib)
 
+if (ANDROID)
+    set(CMAKE_SHARED_LINKER_FLAGS -Wl,--hash-style=sysv)
+endif ()
+
 add_library(mupdf SHARED mupdf.c File.cpp util-memopen.c)
 IF (ANDROID)
     target_link_libraries(mupdf mupdf_core log)
